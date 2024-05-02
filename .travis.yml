@@ -11,6 +11,7 @@ matrix:
 before_install:
     - sudo apt-get update
     - sudo apt-get install gcc-multilib lib32stdc++6 lib32z1 lynx
+    - sudo apt-get install gcc-9 g++-9
 
 script:
     - ./compile.sh
