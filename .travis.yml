@@ -9,6 +9,7 @@ matrix:
     fast_finish: true
 
 before_install:
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
     - sudo apt-get install gcc-multilib lib32stdc++6 lib32z1 lynx
     - sudo apt-get install gcc-9 g++-9
