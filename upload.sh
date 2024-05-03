@@ -28,7 +28,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
 
   # Upload des Artefakts
   echo "Uploading artifact..."
-  curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @build/file.tar.gz "${UPLOAD_URL}?name=file.tar.gz&label=Release file"
+  curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @output/file.tar.gz "${UPLOAD_URL}?name=file.tar.gz&label=Release file"
 else
   echo "This script only runs on master branch and when it's not a pull request."
 fi
