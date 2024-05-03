@@ -33,7 +33,7 @@ if [ ! -d "build" ]; then
 	git clone https://bitbucket.org/minimoney1/simple-chat-processor.git
 	cp simple-chat-processor/scripting/include/scp.inc addons/sourcemod/scripting/include/
 	
-	git clone https://github.com/KissLick/ColorVariables.git
+	git clone https://github.com/BlueRoyal/ColorVariables.git
 	cp ColorVariables/addons/sourcemod/scripting/includes/colorvariables.inc addons/sourcemod/scripting/include/
 
 	git clone https://github.com/peace-maker/mapzonelib.git
