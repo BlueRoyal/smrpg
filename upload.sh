@@ -26,9 +26,10 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
   UPLOAD_URL=$(echo $RESPONSE | jq -r .upload_url | sed -e "s/{?name,label}//")
   echo "Extracted upload URL: $UPLOAD_URL"
 
-  # Upload des Artefakts
-  echo "Uploading artifact..."
-  curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @output/file.tar.gz "${UPLOAD_URL}?name=file.tar.gz&label=Release file"
+  # Stelle sicher, dass der Pfad zum Archiv korrekt ist
+  ARCHIVE_PATH="../smrpg-rev$GITREVCOUNT.tar.gz"
+  echo "Uploading artifact from $ARCHIVE_PATH..."
+  curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ARCHIVE_PATH" "${UPLOAD_URL}?name=$(basename $ARCHIVE_PATH)&label=Release file"
 else
   echo "This script only runs on master branch and when it's not a pull request."
 fi
