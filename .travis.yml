@@ -20,6 +20,9 @@ before_install:
 
 script:
   - ./compile.sh
-
+  
+  after_success:
+  - ./upload.sh 
+  
 notifications:
   email: false
