@@ -21,7 +21,7 @@ before_install:
 script:
   - ./compile.sh
   
-  after_success:
+after_success:
   - ./upload.sh 
   
 notifications:
