@@ -28,7 +28,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     UPLOAD_URL="${UPLOAD_URL}?name=$(basename "$ARCHIVE_PATH")&label=Release%20file"
     
     # Stelle sicher, dass der Pfad zum Archiv korrekt ist
-    ARCHIVE_PATH="../smrpg-rev$GITREVCOUNT.tar.gz"
+    ARCHIVE_PATH="smrpg-rev$GITREVCOUNT.tar.gz"
     if [ -f "$ARCHIVE_PATH" ]; then
         echo "Uploading artifact from $ARCHIVE_PATH..."
         curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ARCHIVE_PATH" "$UPLOAD_URL"
