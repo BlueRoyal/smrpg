@@ -25,14 +25,17 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     ls "$BASEDIR"
     echo "GitHub API Response: $RESPONSE"
 
-    UPLOAD_URL=$(echo $RESPONSE | jq -r .upload_url | sed -e "s/{?name,label}//")
-    UPLOAD_URL="${UPLOAD_URL}?name=${ARCHIVE_NAME}&label=Release%20file"
 
-    echo "$UPLOAD_URL"
     GITREVCOUNT=$(git rev-list --count HEAD)
     # Stelle sicher, dass der Pfad zum Archiv korrekt ist
     ARCHIVE_PATH="smrpg-rev$GITREVCOUNT.tar.gz"
     echo "Current directory content after setting Archive_PATH:"
+
+    UPLOAD_URL=$(echo $RESPONSE | jq -r .upload_url | sed -e "s/{?name,label}//")
+    UPLOAD_URL="${UPLOAD_URL}?name=${ARCHIVE_PATH}&label=Release%20file"
+
+    echo "$UPLOAD_URL"
+    
     ls "$ARCHIVE_PATH"
     if [ -f "$ARCHIVE_PATH" ]; then
         echo "Uploading artifact from $ARCHIVE_PATH..."
