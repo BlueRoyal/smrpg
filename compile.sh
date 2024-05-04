@@ -5,7 +5,8 @@ set -ev
 
 # Define the base directory and ensure all paths are relative to this
 BASEDIR=$(pwd)
-
+echo "Current directory content after setting BASEDIR:"
+ls "$BASEDIR"
 # from smlib travis tests
 SMPATTERN="http:.*sourcemod-.*-linux\..*"
 SMURL="http://www.sourcemod.net/smdrop/$SMVERSION/"
