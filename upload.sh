@@ -29,6 +29,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     UPLOAD_URL="${UPLOAD_URL}?name=$(basename "$ARCHIVE_PATH")&label=Release%20file"
 
     echo "$UPLOAD_URL"
+    GITREVCOUNT=$(git rev-list --count HEAD)
     # Stelle sicher, dass der Pfad zum Archiv korrekt ist
     ARCHIVE_PATH="smrpg-rev$GITREVCOUNT.tar.gz"
     echo "Current directory content after setting Archive_PATH:"
