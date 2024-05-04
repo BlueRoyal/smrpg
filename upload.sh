@@ -12,10 +12,13 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
   git config --global user.name "$GIT_USER_NAME"
 
   # Erzeugen eines Tags
-    export GIT_TAG="build-${TRAVIS_BUILD_NUMBER}-SM${SMVERSION}"
+  export GIT_TAG="build-${TRAVIS_BUILD_NUMBER}-SM${SMVERSION}"
   echo "Creating and pushing tag: $GIT_TAG"
-  g  git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER with SMVERSION $SMVERSION"
-  git push origin $GIT_TAG
+  git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER with SMVERSION $SMVERSION"
+  if ! git push origin $GIT_TAG; then
+    echo "Failed to push git tag to repository."
+    exit 1
+  fi
 
   # Erzeugen der Release-Beschreibung
   BODY="New Release"
@@ -28,8 +31,13 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
 
   # Stelle sicher, dass der Pfad zum Archiv korrekt ist
   ARCHIVE_PATH="../smrpg-rev$GITREVCOUNT.tar.gz"
-  echo "Uploading artifact from $ARCHIVE_PATH..."
-  curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ARCHIVE_PATH" "${UPLOAD_URL}?name=$(basename $ARCHIVE_PATH)&label=Release file"
+  if [[ "$UPLOAD_URL" != null && -f "$ARCHIVE_PATH" ]]; then
+    echo "Uploading artifact from $ARCHIVE_PATH..."
+    curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ARCHIVE_PATH" "${UPLOAD_URL}?name=$(basename "$ARCHIVE_PATH")&label=Release file"
+  else
+    echo "Upload URL is null or file does not exist."
+    exit 1
+  fi
 else
   echo "This script only runs on master branch and when it's not a pull request."
 fi
