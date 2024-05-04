@@ -21,7 +21,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     # Erzeugen der Release-Beschreibung
     BODY="New Release"
     RESPONSE=$(curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" --data "{\"tag_name\": \"$GIT_TAG\", \"target_commitish\": \"master\", \"name\": \"$GIT_TAG\", \"body\": \"$BODY\", \"draft\": false, \"prerelease\": false}" https://api.github.com/repos/$GIT_USER_NAME/smrpg/releases)
-    echo "Basedir: $BASEDIR"
+    echo "Basedir:
+    ls "$BASEDIR"
     echo "GitHub API Response: $RESPONSE"
 
     UPLOAD_URL=$(echo $RESPONSE | jq -r .upload_url | sed -e "s/{?name,label}//")
@@ -29,6 +30,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     
     # Stelle sicher, dass der Pfad zum Archiv korrekt ist
     ARCHIVE_PATH="smrpg-rev$GITREVCOUNT.tar.gz"
+    echo "Current directory content after setting Archive_PATH:"
+    ls "$ARCHIVE_PATH"
     if [ -f "$ARCHIVE_PATH" ]; then
         echo "Uploading artifact from $ARCHIVE_PATH..."
         curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ARCHIVE_PATH" "$UPLOAD_URL"
