@@ -27,7 +27,6 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     UPLOAD_URL="${UPLOAD_URL}?name=$(basename "$ARCHIVE_PATH")&label=Release%20file"
 
     echo $BASEDIR
-    ls $BASEDIR
     # Stelle sicher, dass der Pfad zum Archiv korrekt ist
     ARCHIVE_PATH="$BASEDIR/smrpg-rev$GITREVCOUNT.tar.gz"
     if [ -f "$ARCHIVE_PATH" ]; then
