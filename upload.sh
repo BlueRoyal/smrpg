@@ -12,9 +12,9 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
   git config --global user.name "$GIT_USER_NAME"
 
   # Erzeugen eines Tags
-  export GIT_TAG=build-$TRAVIS_BUILD_NUMBER
+    export GIT_TAG="build-${TRAVIS_BUILD_NUMBER}-SM${SMVERSION}"
   echo "Creating and pushing tag: $GIT_TAG"
-  git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+  g  git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER with SMVERSION $SMVERSION"
   git push origin $GIT_TAG
 
   # Erzeugen der Release-Beschreibung
