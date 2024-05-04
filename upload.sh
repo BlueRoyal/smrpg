@@ -19,7 +19,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     git push origin $GIT_TAG || { echo "Failed to push git tag to repository."; exit 1; }
 
     # Erzeugen der Release-Beschreibung
-    BODY="New Release"
+    CURRENT_DATE=$(date "+%Y-%m-%d")
+    BODY="New Release on $CURRENT_DATE"
     RESPONSE=$(curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" --data "{\"tag_name\": \"$GIT_TAG\", \"target_commitish\": \"master\", \"name\": \"$GIT_TAG\", \"body\": \"$BODY\", \"draft\": false, \"prerelease\": false}" https://api.github.com/repos/$GIT_USER_NAME/smrpg/releases)
     echo "GitHub API Response: $RESPONSE"
 
