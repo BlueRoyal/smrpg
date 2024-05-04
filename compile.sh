@@ -97,8 +97,6 @@ cd "$PACKAGEDIR"
 ARCHIVE="smrpg-rev$GITREVCOUNT.tar.gz"
 tar -zcvf "../$ARCHIVE" *
 cd "$BASEDIR"
-
-# upload package
-if [ ! -z "$DROPURL" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
-  curl -F "sm=$SMVERSION" -F "key=$UPLOADKEY" -F "drop=@../$ARCHIVE" $DROPURL
+echo "$BASEDIR"
+ls $BASEDIR
 fi
