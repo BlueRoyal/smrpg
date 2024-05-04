@@ -27,7 +27,8 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
 
     UPLOAD_URL=$(echo $RESPONSE | jq -r .upload_url | sed -e "s/{?name,label}//")
     UPLOAD_URL="${UPLOAD_URL}?name=$(basename "$ARCHIVE_PATH")&label=Release%20file"
-    
+
+    echo "$UPLOAD_URL"
     # Stelle sicher, dass der Pfad zum Archiv korrekt ist
     ARCHIVE_PATH="smrpg-rev$GITREVCOUNT.tar.gz"
     echo "Current directory content after setting Archive_PATH:"
@@ -37,6 +38,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
         curl -v -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$ARCHIVE_PATH" "$UPLOAD_URL"
     else
         echo "File does not exist: $ARCHIVE_PATH"
+        ls "$BASEDIR"
         exit 1
     fi
 else
