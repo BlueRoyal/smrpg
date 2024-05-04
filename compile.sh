@@ -96,8 +96,8 @@ done
 cd "$PACKAGEDIR"
 ARCHIVE="smrpg-rev$GITREVCOUNT.tar.gz"
 tar -zcvf "../$ARCHIVE" *
-cd "$BASEDIR"
+# cd "$BASEDIR"
 
-echo -e "$BASEDIR"
-ls $BASEDIR
+# echo -e "$BASEDIR"
+# ls $BASEDIR
 
