@@ -26,7 +26,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     echo "GitHub API Response: $RESPONSE"
 
     UPLOAD_URL=$(echo $RESPONSE | jq -r .upload_url | sed -e "s/{?name,label}//")
-    UPLOAD_URL="${UPLOAD_URL}?name=$(basename "$ARCHIVE_PATH")&label=Release%20file"
+    UPLOAD_URL="${UPLOAD_URL}?name=${ARCHIVE_NAME}&label=Release%20file"
 
     echo "$UPLOAD_URL"
     GITREVCOUNT=$(git rev-list --count HEAD)
