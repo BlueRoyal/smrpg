@@ -21,7 +21,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
     # Erzeugen der Release-Beschreibung
     BODY="New Release"
     RESPONSE=$(curl -H "Authorization: token $GITHUB_TOKEN" -H "Content-Type: application/json" --data "{\"tag_name\": \"$GIT_TAG\", \"target_commitish\": \"master\", \"name\": \"$GIT_TAG\", \"body\": \"$BODY\", \"draft\": false, \"prerelease\": false}" https://api.github.com/repos/$GIT_USER_NAME/smrpg/releases)
-    echo "Basedir:
+    echo "Basedir:"
     ls "$BASEDIR"
     echo "GitHub API Response: $RESPONSE"
 
