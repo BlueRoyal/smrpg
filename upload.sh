@@ -11,6 +11,9 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; th
   git config --global user.email "$GIT_USER_EMAIL"
   git config --global user.name "$GIT_USER_NAME"
 
+ # Setzen des Remote-Repository unter Verwendung des Tokens
+  git remote set-url origin https://$GITHUB_TOKEN@github.com/$GIT_USER_NAME/smrpg.git
+
   # Erzeugen eines Tags
   export GIT_TAG="build-${TRAVIS_BUILD_NUMBER}-SM${SMVERSION}"
   echo "Creating and pushing tag: $GIT_TAG"
